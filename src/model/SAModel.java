@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -9,7 +10,7 @@ public class SAModel {
     private Random random = new Random();
     private SAModelState state = SAModelState.resting;
     private SAModelListener listener;
-    private int numCity;
+    private int numPlot;
     private List<Double> mapX = new ArrayList<>();
     private List<Double> mapY = new ArrayList<>();
     private int[] nowRoute;
@@ -29,28 +30,21 @@ public class SAModel {
         random.setSeed(Calendar.getInstance().getTimeInMillis());
     }
 
-    public void loadCSV(FileInputStream csvFile) {
-        resetMap();
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(csvFile));
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] cityData = line.split(",");
-                mapX.add(Double.parseDouble(cityData[0]));
-                mapY.add(Double.parseDouble(cityData[1]));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        numCity = mapY.size();
-        listener.changedSAModel();
-    }
 
-    public void addCity(double x, double y) {
+    public void addPlot(double x, double y) {
         if (state != SAModelState.resting) return;
         mapX.add(x);
         mapY.add(y);
-        numCity++;
+        numPlot++;
+        listener.changedSAModel();
+    }
+
+    public void addPlots(List<Point2D>plotList){
+        for(Point2D p:plotList){
+            mapX.add(p.getX());
+            mapY.add(p.getY());
+        }
+        numPlot+=plotList.size();
         listener.changedSAModel();
     }
 
@@ -66,35 +60,29 @@ public class SAModel {
         startTime = System.currentTimeMillis();
         endTime = startTime + maxTime;
         //街の数
-        numCity = mapX.size();
+        numPlot = mapX.size();
         //街間の距離
-        double[][] d = new double[numCity][numCity];
-        for (int i = 0; i < numCity; i++)
-            for (int j = 0; j < numCity; j++) {
+        double[][] d = new double[numPlot][numPlot];
+        for (int i = 0; i < numPlot; i++)
+            for (int j = 0; j < numPlot; j++) {
                 d[i][j] = Math.sqrt(Math.pow(mapX.get(j) - mapX.get(i), 2) + Math.pow(mapY.get(j) - mapY.get(i), 2));
             }
         //経路の初期設定
-        nowRoute = new int[numCity];
-        for (int i = 0; i < numCity; i++) nowRoute[i] = i;
-        for (int i = 0; i < numCity; i++) {
-            int rnd = (int) (random.nextDouble() * (double) numCity);
-            int w = nowRoute[i];
-            nowRoute[i] = nowRoute[rnd];
-            nowRoute[rnd] = w;
-        }
-        bestRoute = new int[numCity];
-        for (int k = 0; k < numCity; k++) bestRoute[k] = nowRoute[k];
+        makeRandomRoute();
+
+        bestRoute = new int[numPlot];
+        for (int k = 0; k < numPlot; k++) bestRoute[k] = nowRoute[k];
         //総距離の初期設定
-        nowDist = d[nowRoute[0]][nowRoute[numCity - 1]];
-        for (int i = 0; i < numCity - 1; i++) nowDist += d[nowRoute[i]][nowRoute[i + 1]];
+        nowDist = d[nowRoute[0]][nowRoute[numPlot - 1]];
+        for (int i = 0; i < numPlot - 1; i++) nowDist += d[nowRoute[i]][nowRoute[i + 1]];
         bestDist = nowDist;
         //ステップ内で用いる変数
         step = 1;
         remainTime = endTime - System.currentTimeMillis();
-        int newRoute[] = new int[numCity];
+        int newRoute[] = new int[numPlot];
         double maxTime_inv=1.0/maxTime;
-        int numCity_minus_1 = numCity - 1;
-        int numCity_minus_2 = numCity - 2;
+        int numCity_minus_1 = numPlot - 1;
+        int numCity_minus_2 = numPlot - 2;
         new Thread(() -> {
             while (remainTime > 0) {
                 //2Opt法によるルートの入れ替え候補の街を設定
@@ -127,11 +115,11 @@ public class SAModel {
                     if (minus_deltaDist >= 0
                             || random.nextDouble() < Math.exp(minus_deltaDist / nowTemp )) {
                         //新ルートの構築
-                        for (int k = 0; k < numCity; k++) newRoute[k] = nowRoute[k];
+                        for (int k = 0; k < numPlot; k++) newRoute[k] = nowRoute[k];
                         for (int k = 0; k <= swapEnd - swapStart; k++) {
                             newRoute[swapStart + k] = nowRoute[swapEnd - k];
                         }
-                        for (int k = 0; k < numCity; k++) nowRoute[k] = newRoute[k];
+                        for (int k = 0; k < numPlot; k++) nowRoute[k] = newRoute[k];
                         //新距離の厳密計算
                         newDist = d[newRoute[0]][newRoute[numCity_minus_1]];
                         for (int k = 0; k < numCity_minus_1; k++) newDist += d[newRoute[k]][newRoute[k + 1]];
@@ -147,7 +135,7 @@ public class SAModel {
                     if (bestDist > newDist) {
                         if(!atomMoved) {
                             //新ルートの構築
-                            for (int k = 0; k < numCity; k++) newRoute[k] = nowRoute[k];
+                            for (int k = 0; k < numPlot; k++) newRoute[k] = nowRoute[k];
                             for (int k = 0; k <= swapEnd - swapStart; k++) {
                                 newRoute[swapStart + k] = nowRoute[swapEnd - k];
                             }
@@ -156,7 +144,7 @@ public class SAModel {
                             for (int k = 0; k < numCity_minus_1; k++) newDist += d[newRoute[k]][newRoute[k + 1]];
                         }
                         //新ルートと新距離の記録
-                        for (int k = 0; k < numCity; k++) bestRoute[k] = newRoute[k];
+                        for (int k = 0; k < numPlot; k++) bestRoute[k] = newRoute[k];
                         bestDist=newDist;
                     }
                 }
@@ -188,12 +176,24 @@ public class SAModel {
         nowRoute = null;
         mapX = new ArrayList<>();
         mapY = new ArrayList<>();
-        numCity = 0;
+        numPlot = 0;
         listener.changedSAModel();
     }
 
-    public synchronized int getNumCity() {
-        return numCity;
+    public void makeRandomRoute() {
+        nowRoute = new int[numPlot];
+        for (int i = 0; i < numPlot; i++) nowRoute[i] = i;
+        for (int i = 0; i < numPlot; i++) {
+            int rnd = (int) (random.nextDouble() * (double) numPlot);
+            int w = nowRoute[i];
+            nowRoute[i] = nowRoute[rnd];
+            nowRoute[rnd] = w;
+        }
+        listener.changedSAModel();
+    }
+
+    public synchronized int getNumPlot() {
+        return numPlot;
     }
 
     public synchronized double getNowCost() {
@@ -227,6 +227,8 @@ public class SAModel {
     public synchronized int[] getRoute() {
         return nowRoute;
     }
+
+
 
     public enum SAModelState {
         working,
