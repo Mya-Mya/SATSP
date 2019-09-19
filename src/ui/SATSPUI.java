@@ -4,18 +4,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SATSPUI {
-    static public final Font mainFont=new Font("メイリオ",Font.PLAIN,15);
+    static public final Font mainFont=new Font("メイリオ",Font.PLAIN,18);
+    static public final Font largeFont=new Font("メイリオ",Font.PLAIN,25);
     static public final Color black=new Color(52, 49, 49);
-    static public final Color gray1=new Color(82, 82, 82);
-    static public final Color gray2=new Color(156, 156, 156);
+    static public final Color gray1=new Color(75, 75, 75);
+    static public final Color gray2=new Color(129, 129, 129);
     static public final Color white=new Color(240,240,240);
-    static public final Color cyan=new Color(33, 201, 248);
+    static public final Color cyan=new Color(36, 185, 248);
     static public final JButton createButton(String text){
         JButton b=new JButton(text);
         b.setFont(mainFont);
         b.setForeground(white);
         b.setBackground(gray1);
-        b.setContentAreaFilled(false);
+
+        b.setBorderPainted(false);
+        b.setFocusPainted(false);
         return b;
     }
     static public final JButton createButton(){
@@ -27,6 +30,15 @@ public class SATSPUI {
         l.setForeground(white);
         l.setBackground(black);
         return l;
+    }
+    static public final JTextArea createUnEditableTextArea(){
+        JTextArea t=new JTextArea();
+        t.setFont(largeFont);
+        t.setForeground(white);
+        t.setBackground(black);
+        t.setEditable(false);
+        t.setLineWrap(true);
+        return t;
     }
     static public final JLabel createLabel(){
         return createLabel("");
@@ -44,7 +56,8 @@ public class SATSPUI {
         JTextField t=new JTextField();
         t.setFont(mainFont);
         t.setForeground(white);
-        t.setBackground(black);
+        t.setBackground(gray1);
+        t.setBorder(null);
         return t;
     }
 }
