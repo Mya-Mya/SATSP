@@ -4,18 +4,15 @@ import model.SAModel;
 import model.SAModelListener;
 import model.Tutorial;
 import model.TutorialLoader;
-import repository.PlotLoader;
 import repository.PlotRepository;
-import ui.ITutorialView;
-import ui.SATSPUI;
+import view.tutorial.ITutorialView;
+import view.SATSPUI;
 
 import javax.swing.*;
-import javax.swing.plaf.nimbus.State;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 
 public class TutorialPresenter implements PropertyChangeListener, SAModelListener, ActionListener {
     //モデル

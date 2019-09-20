@@ -1,6 +1,11 @@
-package ui;
+package view.playing;
 
 import presenter.PlayingPresenter;
+import presenter.PlotsDataChoosingPresenter;
+import view.fragment.PlotMapView;
+import view.SATSPUI;
+import view.SceneChanger;
+import view.fragment.PlotsDataChoosingView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -186,13 +191,8 @@ implements IPlayingView, ActionListener {
     }
 
     @Override
-    public void showOpenCSVDialog() {
-        JFileChooser c = new JFileChooser(System.getProperty("user.dir"));
-        c.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        int ret = c.showOpenDialog(this);
-        if (ret == JFileChooser.APPROVE_OPTION) {
-            presenter.selectedFile(c.getSelectedFile());
-        }
+    public void showOpenCSVDialog(PlotsDataChoosingPresenter presenter) {
+        new PlotsDataChoosingView(presenter);
     }
 
 

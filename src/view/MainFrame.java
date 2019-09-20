@@ -1,4 +1,7 @@
-package ui;
+package view;
+
+import view.playing.PlayingView;
+import view.tutorial.TutorialView;
 
 import javax.swing.*;
 import java.awt.*;

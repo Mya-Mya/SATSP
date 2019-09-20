@@ -2,24 +2,20 @@ package presenter;
 
 import model.SAModel;
 import model.SAModelListener;
-import repository.PlotLoader;
-import ui.IPlayingView;
-import ui.SATSPUI;
+import view.playing.IPlayingView;
+import view.SATSPUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class PlayingPresenter implements SAModelListener, ActionListener {
     private IPlayingView view;
-    private SAModel model;
+    private SAModel mSAModel;
     private javax.swing.Timer timer;
 
     public PlayingPresenter(IPlayingView you) {
         this.view = you;
-        model = new SAModel(this);
+        mSAModel = new SAModel(this);
         timer = new javax.swing.Timer(10, this);
         updateView();
         view.setMaxTimeText("3");
@@ -27,32 +23,28 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
     }
 
     public void pressedStart() {
-        model.setMaxTime(view.getMaxTime());
-        model.setFirstTemp(view.getFirstTemp());
+        mSAModel.setMaxTime(view.getMaxTime());
+        mSAModel.setFirstTemp(view.getFirstTemp());
         timer.start();
-        model.start();
+        mSAModel.start();
     }
 
     public void pressedReset() {
-        model.resetMap();
+        mSAModel.resetMap();
     }
 
     public void pressedLoad() {
-        view.showOpenCSVDialog();
-    }
-
-    public void selectedFile(File file) {
-        model.resetMap();
-        model.addPlots(PlotLoader.loadPlotsFromCSVFile(file));
+        PlotsDataChoosingPresenter presenter=new PlotsDataChoosingPresenter(mSAModel);
+        view.showOpenCSVDialog(presenter);
     }
 
     public void touchedAt(double x, double y) {
-        model.addPlot(x, y);
+        mSAModel.addPlot(x, y);
     }
 
     @Override
     public void changedSAModel() {
-        switch (model.getSAModelState()) {
+        switch (mSAModel.getSAModelState()) {
             case resting:
                 view.setBackgroundColor(SATSPUI.white);
                 if (timer.isRunning()) timer.stop();
@@ -73,14 +65,14 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
     }
 
     protected void updateView() {
-        if(model.getNumPlot()<4)view.setStartButtonEnabled(false);
-        view.setNumPlotText(Integer.toString(model.getNumPlot()));
-        view.setNowCostText(String.format("%.2f", model.getNowCost()));
-        view.setBestCostText(String.format("%.4f", model.getBestCost()));
-        view.setNowStepText(String.format("%,d", model.getNowStep()));
-        view.setNowTempText(String.format("%.4f", model.getNowTemp()));
-        view.setRemainTimeText(Double.toString(model.getRemainTime()));
-        view.drawPlotMap(model.getMapX(), model.getMapY());
-        view.drawRouteMap(model.getRoute());
+        if(mSAModel.getNumPlot()<4)view.setStartButtonEnabled(false);
+        view.setNumPlotText(Integer.toString(mSAModel.getNumPlot()));
+        view.setNowCostText(String.format("%.2f", mSAModel.getNowCost()));
+        view.setBestCostText(String.format("%.4f", mSAModel.getBestCost()));
+        view.setNowStepText(String.format("%,d", mSAModel.getNowStep()));
+        view.setNowTempText(String.format("%.4f", mSAModel.getNowTemp()));
+        view.setRemainTimeText(Double.toString(mSAModel.getRemainTime()));
+        view.drawPlotMap(mSAModel.getMapX(), mSAModel.getMapY());
+        view.drawRouteMap(mSAModel.getRoute());
     }
 }

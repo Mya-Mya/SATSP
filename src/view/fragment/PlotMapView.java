@@ -1,6 +1,7 @@
-package ui;
+package view.fragment;
 
 import presenter.PlayingPresenter;
+import view.SATSPUI;
 
 import javax.swing.*;
 import java.awt.*;

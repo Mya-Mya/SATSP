@@ -1,6 +1,4 @@
-package ui;
-
-import com.sun.javafx.geom.Point2D;
+package view.tutorial;
 
 import java.awt.*;
 import java.util.List;

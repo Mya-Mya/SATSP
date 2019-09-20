@@ -1,4 +1,4 @@
-package ui;
+package view;
 
 public interface SceneChanger {
     enum Scene{

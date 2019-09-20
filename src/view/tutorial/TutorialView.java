@@ -1,7 +1,10 @@
-package ui;
+package view.tutorial;
 
 import presenter.TutorialPresenter;
 import repository.TutorialLoaderByFile;
+import view.fragment.PlotMapView;
+import view.SATSPUI;
+import view.SceneChanger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +32,7 @@ public class TutorialView extends JPanel implements ITutorialView, ActionListene
         super();
         this.sceneChanger=sceneChanger;
 
-        tPageNum=SATSPUI.createLabel();
+        tPageNum= SATSPUI.createLabel();
         tPageNum.setHorizontalAlignment(SwingConstants.CENTER);
         tContent=SATSPUI.createUnEditableTextArea();
         tContent.setMargin(new Insets(10,10,10,10));

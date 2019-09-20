@@ -1,10 +1,12 @@
-package ui;
+package view.playing;
+
+import presenter.PlotsDataChoosingPresenter;
 
 import java.awt.*;
 import java.util.List;
 
-public interface IMainFrame {
-    void setNumCityText(String t);
+public interface IPlayingView {
+    void setNumPlotText(String t);
 
     void setNowStepText(String t);
 
@@ -16,7 +18,7 @@ public interface IMainFrame {
 
     void setRemainTimeText(String t);
 
-    void drawCityMap(List<Double> mapX, List<Double> mapY);
+    void drawPlotMap(List<Double> mapX, List<Double> mapY);
 
     void drawRouteMap(int[] route);
 
@@ -36,5 +38,5 @@ public interface IMainFrame {
 
     void forceRepaint();
 
-    void showOpenCSVDialog();
+    void showOpenCSVDialog(PlotsDataChoosingPresenter presenter);
 }
