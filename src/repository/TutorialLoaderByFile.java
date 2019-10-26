@@ -10,11 +10,14 @@ public class TutorialLoaderByFile implements TutorialLoader {
     @Override
     public Tutorial execute() {
         Tutorial out=new Tutorial();
+        String jarPath=System.getProperty("java.class.path");
+        String dirPath=jarPath.substring(0,jarPath.lastIndexOf(File.separator)+1);
+
 
         for(int i=0;i<=19;i++){
             try {
                 StringBuilder fileNameBuilder=new StringBuilder();
-                fileNameBuilder.append("values/tutorial_data/").append(i).append(".txt");
+                fileNameBuilder.append(dirPath).append("\\values\\tutorial_data\\").append(i).append(".txt");
                 File file =new File(fileNameBuilder.toString());
                 StringBuilder contentTextBuilder=new StringBuilder();
                 FileReader reader1=new FileReader(file);
@@ -28,7 +31,7 @@ public class TutorialLoaderByFile implements TutorialLoader {
                 }
 
                 String tutorialContent=contentTextBuilder.toString();
-                tutorialContent=tutorialContent.substring(1);
+                //tutorialContent=tutorialContent.substring(1);
                 out.addContent(new TutorialContent(tutorialContent));
 
             } catch (FileNotFoundException e) {

@@ -23,9 +23,9 @@ public class PlotRepository {
         }
         public String getFilePath(){
             switch (this){
-                case PLOT_120:return"values/map_data/map_data.csv";
-                case PLOT_200:return"values/map_data/map_data2.csv";
-                case PLOT_500:return"values/map_data/map_data3.csv";
+                case PLOT_120:return"values\\map_data\\map_data.csv";
+                case PLOT_200:return"values\\map_data\\map_data2.csv";
+                case PLOT_500:return"values\\map_data\\map_data3.csv";
             }
             return "";
         }
@@ -40,8 +40,11 @@ public class PlotRepository {
 
     private Map<PlotSet, List<Point2D>>datas=new HashMap<>();
     private PlotRepository(){
+        String jarPath=System.getProperty("java.class.path");
+        String dirPath=jarPath.substring(0,jarPath.lastIndexOf(File.separator)+1);
+
         for(PlotSet p:PlotSet.values()){
-            File dataFile=new File(p.getFilePath());
+            File dataFile=new File(dirPath+"\\"+p.getFilePath());
             List<Point2D>plots=PlotLoader.loadPlotsFromCSVFile(dataFile);
             datas.put(p,plots);
         }
