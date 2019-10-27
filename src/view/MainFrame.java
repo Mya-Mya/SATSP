@@ -12,7 +12,7 @@ public class MainFrame extends JFrame
 
     public MainFrame() {
         super("SATSP");
-        setPreferredSize(new Dimension(1200, 700));
+        setPreferredSize(new Dimension(1250, 800));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 

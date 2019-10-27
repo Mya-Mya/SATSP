@@ -24,7 +24,7 @@ public class GuideView extends JDialog implements IGuideView, ActionListener {
         super();
         this.mGuidePresenter=mGuidePresenter;
         setModal(false);
-        setPreferredSize(new Dimension(500,400));
+        setPreferredSize(new Dimension(700,400));
         getContentPane().setBackground(SATSPUI.cyan);
 
         lTitle=SATSPUI.createLabel();

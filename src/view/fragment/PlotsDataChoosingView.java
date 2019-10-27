@@ -15,7 +15,7 @@ public class PlotsDataChoosingView extends JDialog
     public PlotsDataChoosingView(PlotsDataChoosingPresenter presenter){
         super();
         setModal(true);
-        setPreferredSize(new Dimension(400,600));
+        setPreferredSize(new Dimension(500,600));
         this.presenter=presenter;
 
         setLayout(new BorderLayout());
