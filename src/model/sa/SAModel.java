@@ -1,9 +1,6 @@
-package model;
+package model.sa;
 
 import java.awt.geom.Point2D;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.*;
 
 public class SAModel {

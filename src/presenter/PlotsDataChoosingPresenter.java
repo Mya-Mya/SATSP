@@ -1,6 +1,6 @@
 package presenter;
 
-import model.SAModel;
+import model.sa.SAModel;
 import repository.PlotRepository;
 import view.fragment.IPlotsDataChoosingView;
 

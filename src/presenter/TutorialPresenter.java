@@ -1,9 +1,9 @@
 package presenter;
 
-import model.SAModel;
-import model.SAModelListener;
-import model.Tutorial;
-import model.TutorialLoader;
+import model.sa.SAModel;
+import model.sa.SAModelListener;
+import model.tutorial.Tutorial;
+import model.tutorial.TutorialLoader;
 import repository.PlotRepository;
 import view.tutorial.ITutorialView;
 import view.SATSPUI;

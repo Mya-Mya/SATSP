@@ -1,8 +1,8 @@
 package repository;
 
-import model.Tutorial;
-import model.TutorialContent;
-import model.TutorialLoader;
+import model.tutorial.Tutorial;
+import model.tutorial.TutorialContent;
+import model.tutorial.TutorialLoader;
 
 import java.io.*;
 
@@ -10,9 +10,7 @@ public class TutorialLoaderByFile implements TutorialLoader {
     @Override
     public Tutorial execute() {
         Tutorial out=new Tutorial();
-        String jarPath=System.getProperty("java.class.path");
-        String dirPath=jarPath.substring(0,jarPath.lastIndexOf(File.separator)+1);
-
+        String dirPath=CurrentPath.getCurrentPath();
 
         for(int i=0;i<=19;i++){
             try {

@@ -1,4 +1,4 @@
-package model;
+package model.tutorial;
 
 public class TutorialContent {
     private String value;

@@ -1,7 +1,7 @@
 package presenter;
 
-import model.SAModel;
-import model.SAModelListener;
+import model.sa.SAModel;
+import model.sa.SAModelListener;
 import view.playing.IPlayingView;
 import view.SATSPUI;
 
