@@ -55,7 +55,7 @@ public class TutorialView extends JPanel implements ITutorialView, ActionListene
         setLayout(new BorderLayout());
 
         JPanel pContent=SATSPUI.createPanel(new BorderLayout());
-        pContent.setPreferredSize(new Dimension(500,120));
+        pContent.setPreferredSize(new Dimension(500,150));
         pContent.add(tContent,BorderLayout.CENTER);
         add(pContent,BorderLayout.NORTH);
 
