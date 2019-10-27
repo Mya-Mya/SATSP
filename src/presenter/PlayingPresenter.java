@@ -24,6 +24,10 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
         view.setDefaultMaxTimeText("3");
         view.setFirstTempTextList(new String[]{"0.1","1","3","5","10","20","50","100","200","300","400"});
         view.setDefaultFirstTempText("10");
+
+        GuideLoader mGuideLoader=new GuideLoaderByFile();
+        GuidePresenter mGuidePresenter=new GuidePresenter(mGuideLoader);
+        view.showGuideDialog(mGuidePresenter);
     }
 
     public void pressedStart() {
@@ -82,9 +86,9 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
         if(mSAModel.getNumPlot()<4)view.setStartButtonAndMakeRandomRouteButtonEnabled(false);
         view.setNumPlotText(Integer.toString(mSAModel.getNumPlot()));
         view.setNowCostText(String.format("%.2f", mSAModel.getNowCost()));
-        view.setBestCostText(String.format("%.4f", mSAModel.getBestCost()));
+        view.setBestCostText(String.format("%.3f", mSAModel.getBestCost()));
         view.setNowStepText(String.format("%,d", mSAModel.getNowStep()));
-        view.setNowTempText(String.format("%.4f", mSAModel.getNowTemp()));
+        view.setNowTempText(String.format("%.3f", mSAModel.getNowTemp()));
         view.setRemainTimeText(Double.toString(mSAModel.getRemainTime()));
         view.drawPlotMap(mSAModel.getMapX(), mSAModel.getMapY());
         view.drawRouteMap(mSAModel.getRoute());
