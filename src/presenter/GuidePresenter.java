@@ -13,10 +13,14 @@ public class GuidePresenter implements PropertyChangeListener {
     //モデル
     private Guide mGuideModel;
 
-    public GuidePresenter(GuideLoader loader,IGuideView view){
+    public GuidePresenter(GuideLoader loader){
         mGuideModel=loader.execute();
         mGuideModel.addPCL(this);
+    }
+
+    public void setView(IGuideView view){
         this.mGuideView=view;
+        propertyChange(null);
     }
 
     public void onGoNextButtonClicked(){
@@ -37,8 +41,13 @@ public class GuidePresenter implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        mGuideView.setNowPageNumText(Integer.toString(mGuideModel.getNowPageIndex()));
+        mGuideView.setNowPageNumText(new StringBuilder()
+                .append(mGuideModel.getNowPageIndex()+1).append('/').append(mGuideModel.getNumPage())
+                .toString()
+        );
         mGuideView.setTitleText(mGuideModel.getNowPage().title);
         mGuideView.setContentText(mGuideModel.getNowPage().content);
+        mGuideView.setGoNextButtonEnabled(mGuideModel.canGoNext());
+        mGuideView.setGoPrevButtonEnabled(mGuideModel.canGoPrev());
     }
 }
