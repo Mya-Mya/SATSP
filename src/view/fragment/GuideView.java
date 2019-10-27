@@ -38,19 +38,22 @@ public class GuideView extends JDialog implements IGuideView, ActionListener {
         tContent.setFont(SATSPUI.largeFont);
         tContent.setForeground(SATSPUI.white);
 
-        bPrev=SATSPUI.createButton("<<");
-        bPrev.setFont(SATSPUI.mainFont);
+        bPrev=SATSPUI.createButton("◀◀もどる");
+        bPrev.setFont(SATSPUI.largeFont);
         bPrev.setForeground(SATSPUI.white);
+        bPrev.setOpaque(false);
         bPrev.setActionCommand("GO_PREV");
         bPrev.addActionListener(this);
 
         lPageIndicator=SATSPUI.createLabel();
-        lPageIndicator.setFont(SATSPUI.mainFont);
+        lPageIndicator.setHorizontalAlignment(SwingConstants.CENTER);
+        lPageIndicator.setFont(SATSPUI.largeFont);
         lPageIndicator.setForeground(SATSPUI.white);
 
-        bNext=SATSPUI.createButton(">>");
-        bNext.setFont(SATSPUI.mainFont);
-        bNext.setForeground(SATSPUI.white);
+        bNext=SATSPUI.createButton("すすむ▶▶");
+        bNext.setFont(SATSPUI.largeFont);
+        bNext.setOpaque(false);
+        bNext.setBackground(SATSPUI.white);
         bNext.setActionCommand("GO_NEXT");
         bNext.addActionListener(this);
 

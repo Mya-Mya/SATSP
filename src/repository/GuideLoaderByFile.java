@@ -21,9 +21,11 @@ public class GuideLoaderByFile implements GuideLoader {
         Arrays.sort(textFileList, new Comparator<File>() {
             @Override
             public int compare(File o1, File o2) {
-                int i1=Integer.parseInt(o1.getName().substring(2));
-                int i2=Integer.parseInt(o2.getName().substring(2));
-                return i2-i1;
+                String name1=o1.getName();
+                String name2=o2.getName();
+                int i1=Integer.parseInt(name1.substring(0,name1.lastIndexOf('.')));
+                int i2=Integer.parseInt(name2.substring(0,name2.lastIndexOf('.')));
+                return i1-i2;
             }
         });
         for(File textFile:textFileList){

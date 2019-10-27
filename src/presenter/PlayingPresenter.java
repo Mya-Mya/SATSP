@@ -48,6 +48,10 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
         view.showGuideDialog(mGuidePresenter);
     }
 
+    public void pressedMakeRandomRoute() {
+        mSAModel.makeRandomRoute();
+    }
+
     public void touchedAt(double x, double y) {
         mSAModel.addPlot(x, y);
     }
@@ -85,6 +89,7 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
         view.drawPlotMap(mSAModel.getMapX(), mSAModel.getMapY());
         view.drawRouteMap(mSAModel.getRoute());
     }
+
 
 
 }

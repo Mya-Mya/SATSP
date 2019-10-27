@@ -186,6 +186,17 @@ public class SAModel {
             nowRoute[i] = nowRoute[rnd];
             nowRoute[rnd] = w;
         }
+        //街間の距離
+        double[][] d = new double[numPlot][numPlot];
+        for (int i = 0; i < numPlot; i++)
+            for (int j = 0; j < numPlot; j++) {
+                d[i][j] = Math.sqrt(Math.pow(mapX.get(j) - mapX.get(i), 2) + Math.pow(mapY.get(j) - mapY.get(i), 2));
+            }
+        //総距離の計算
+        nowDist = d[nowRoute[0]][nowRoute[numPlot - 1]];
+        for (int i = 0; i < numPlot - 1; i++) nowDist += d[nowRoute[i]][nowRoute[i + 1]];
+        bestDist = nowDist;
+        
         listener.changedSAModel();
     }
 

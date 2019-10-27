@@ -28,6 +28,7 @@ implements IPlayingView, ActionListener {
     private JLabel lNumPlot;
     private JTextField tMaxTime;
     private JTextField tFirstTemp;
+    private JButton bMakeRandomRoute;
     private JButton bStart;
     private JButton bReset;
     private JButton bLoad;
@@ -59,6 +60,9 @@ implements IPlayingView, ActionListener {
         tFirstTemp = SATSPUI.createTextField();
         tFirstTemp.setPreferredSize(new Dimension(50, 25));
         tFirstTemp.setForeground(SATSPUI.cyan);
+        bMakeRandomRoute=SATSPUI.createButton("RandomRoute");
+        bMakeRandomRoute.setActionCommand("MakeRandomRoute");
+        bMakeRandomRoute.addActionListener(this);
         bStart = SATSPUI.createButton("Start");
         bStart.setActionCommand("START");
         bStart.addActionListener(this);
@@ -77,6 +81,7 @@ implements IPlayingView, ActionListener {
         pUpper.add(tMaxTime);
         pUpper.add(lFirstTempHelper);
         pUpper.add(tFirstTemp);
+        pUpper.add(bMakeRandomRoute);
         pUpper.add(bStart);
         pUpper.add(bReset);
         pUpper.add(bLoad);
@@ -183,6 +188,7 @@ implements IPlayingView, ActionListener {
 
     @Override
     public void setUIEnabled(boolean b) {
+        bMakeRandomRoute.setEnabled(b);
         bStart.setEnabled(b);
         bReset.setEnabled(b);
         bLoad.setEnabled(b);
@@ -225,6 +231,9 @@ implements IPlayingView, ActionListener {
         }
         else if(acco.equals(bGuide.getActionCommand())){
             presenter.pressedOpenGuide();
+        }
+        else if(acco.equals(bMakeRandomRoute.getActionCommand())){
+            presenter.pressedMakeRandomRoute();
         }
     }
 
