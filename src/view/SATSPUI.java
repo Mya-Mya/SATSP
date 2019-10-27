@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SATSPUI {
-    static public final Font mainFont=new Font("メイリオ",Font.PLAIN,18);
+    static public final Font mainFont=new Font("メイリオ",Font.PLAIN,20);
     static public final Font largeFont=new Font("メイリオ",Font.PLAIN,25);
     static public final Color black=new Color(52, 49, 49);
     static public final Color gray1=new Color(75, 75, 75);

@@ -18,10 +18,10 @@ public class TutorialLoaderByFile implements TutorialLoader {
                 fileNameBuilder.append(dirPath).append("\\values\\tutorial_data\\").append(i).append(".txt");
                 File file =new File(fileNameBuilder.toString());
                 StringBuilder contentTextBuilder=new StringBuilder();
-                FileReader reader1=new FileReader(file);
-                BufferedReader reader2=new BufferedReader(reader1);
+                //FileReader reader1=new FileReader(file);
+                BufferedReader reader=new BufferedReader(new InputStreamReader(new FileInputStream(file),"shift_jis"));
                 String line;
-                while((line=reader2.readLine())!=null){
+                while((line=reader.readLine())!=null){
                     if(!contentTextBuilder.toString().equals("")){
                         contentTextBuilder.append("\n");
                     }

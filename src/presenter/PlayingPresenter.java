@@ -1,7 +1,11 @@
 package presenter;
 
+import model.guide.GuideLoader;
 import model.sa.SAModel;
 import model.sa.SAModelListener;
+import repository.GuideLoaderByFile;
+import view.fragment.GuideView;
+import view.fragment.IGuideView;
 import view.playing.IPlayingView;
 import view.SATSPUI;
 
@@ -36,6 +40,12 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
     public void pressedLoad() {
         PlotsDataChoosingPresenter presenter=new PlotsDataChoosingPresenter(mSAModel);
         view.showOpenCSVDialog(presenter);
+    }
+
+    public void pressedOpenGuide() {
+        GuideLoader mGuideLoader=new GuideLoaderByFile();
+        GuidePresenter mGuidePresenter=new GuidePresenter(mGuideLoader);
+        view.showGuideDialog(mGuidePresenter);
     }
 
     public void touchedAt(double x, double y) {
@@ -75,4 +85,6 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
         view.drawPlotMap(mSAModel.getMapX(), mSAModel.getMapY());
         view.drawRouteMap(mSAModel.getRoute());
     }
+
+
 }

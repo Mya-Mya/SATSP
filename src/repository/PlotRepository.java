@@ -40,8 +40,7 @@ public class PlotRepository {
 
     private Map<PlotSet, List<Point2D>>datas=new HashMap<>();
     private PlotRepository(){
-        String jarPath=System.getProperty("java.class.path");
-        String dirPath=jarPath.substring(0,jarPath.lastIndexOf(File.separator)+1);
+        String dirPath=CurrentPath.getCurrentPath();
 
         for(PlotSet p:PlotSet.values()){
             File dataFile=new File(dirPath+"\\"+p.getFilePath());

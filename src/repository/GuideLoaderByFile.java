@@ -5,6 +5,9 @@ import model.guide.GuideContent;
 import model.guide.GuideLoader;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class GuideLoaderByFile implements GuideLoader {
     @Override
@@ -13,12 +16,25 @@ public class GuideLoaderByFile implements GuideLoader {
         String targetDirectoryPath
                 =new StringBuilder().append(CurrentPath.getCurrentPath()).append("\\values\\guide_data").toString();
         File targetDirectory=new File(targetDirectoryPath);
-        for(File textFile:targetDirectory.listFiles()){
+
+        File[]textFileList= targetDirectory.listFiles();
+        Arrays.sort(textFileList, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) {
+                int i1=Integer.parseInt(o1.getName().substring(2));
+                int i2=Integer.parseInt(o2.getName().substring(2));
+                return i2-i1;
+            }
+        });
+        for(File textFile:textFileList){
 
             try {
                 BufferedReader reader=new BufferedReader(new InputStreamReader(new FileInputStream(textFile),"utf-8"));
 
                 String title=reader.readLine();
+                if(title.charAt(0)=='\uFEFF'){
+                    title=title.substring(1);
+                }
                 String content=reader.readLine();
 
                 out.addContent(new GuideContent(title,content));

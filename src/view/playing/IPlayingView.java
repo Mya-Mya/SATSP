@@ -1,5 +1,6 @@
 package view.playing;
 
+import presenter.GuidePresenter;
 import presenter.PlotsDataChoosingPresenter;
 
 import java.awt.*;
@@ -39,4 +40,6 @@ public interface IPlayingView {
     void forceRepaint();
 
     void showOpenCSVDialog(PlotsDataChoosingPresenter presenter);
+
+    void showGuideDialog(GuidePresenter mGuidePresenter);
 }

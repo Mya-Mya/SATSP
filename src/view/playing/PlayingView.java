@@ -1,7 +1,12 @@
 package view.playing;
 
+import model.guide.GuideLoader;
+import presenter.GuidePresenter;
 import presenter.PlayingPresenter;
 import presenter.PlotsDataChoosingPresenter;
+import repository.GuideLoaderByFile;
+import view.fragment.GuideView;
+import view.fragment.IGuideView;
 import view.fragment.PlotMapView;
 import view.SATSPUI;
 import view.SceneChanger;
@@ -26,6 +31,7 @@ implements IPlayingView, ActionListener {
     private JButton bStart;
     private JButton bReset;
     private JButton bLoad;
+    private JButton bGuide;
     private JLabel lNowStep;
     private JLabel lNowTemp;
     private JLabel lNowCost;
@@ -62,6 +68,9 @@ implements IPlayingView, ActionListener {
         bLoad = SATSPUI.createButton("Load");
         bLoad.setActionCommand("LOAD");
         bLoad.addActionListener(this);
+        bGuide=SATSPUI.createButton("Guide");
+        bGuide.setActionCommand("GUIDE");
+        bGuide.addActionListener(this);
         pUpper.add(lNumPlotHelper);
         pUpper.add(lNumPlot);
         pUpper.add(lMaxTimeHelper);
@@ -71,6 +80,7 @@ implements IPlayingView, ActionListener {
         pUpper.add(bStart);
         pUpper.add(bReset);
         pUpper.add(bLoad);
+        pUpper.add(bGuide);
         add(pUpper, BorderLayout.NORTH);
 
         JPanel pDowner = SATSPUI.createPanel(new GridLayout(1, -1, 0, 10));
@@ -103,6 +113,7 @@ implements IPlayingView, ActionListener {
 
         presenter=new PlayingPresenter(this);
         vPlotMapView.setPresenter(presenter);
+
     }
 
     @Override
@@ -195,6 +206,10 @@ implements IPlayingView, ActionListener {
         new PlotsDataChoosingView(presenter);
     }
 
+    @Override
+    public void showGuideDialog(GuidePresenter mGuidePresenter) {
+        IGuideView mGuideView=new GuideView(mGuidePresenter);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -202,11 +217,14 @@ implements IPlayingView, ActionListener {
         if (acco.equals(bStart.getActionCommand())) {
             presenter.pressedStart();
         }
-        if (acco.equals(bReset.getActionCommand())) {
+        else if (acco.equals(bReset.getActionCommand())) {
             presenter.pressedReset();
         }
-        if (acco.equals(bLoad.getActionCommand())) {
+        else if (acco.equals(bLoad.getActionCommand())) {
             presenter.pressedLoad();
+        }
+        else if(acco.equals(bGuide.getActionCommand())){
+            presenter.pressedOpenGuide();
         }
     }
 
