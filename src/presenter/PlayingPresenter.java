@@ -4,8 +4,6 @@ import model.guide.GuideLoader;
 import model.sa.SAModel;
 import model.sa.SAModelListener;
 import repository.GuideLoaderByFile;
-import view.fragment.GuideView;
-import view.fragment.IGuideView;
 import view.playing.IPlayingView;
 import view.SATSPUI;
 
@@ -22,8 +20,11 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
         mSAModel = new SAModel(this);
         timer = new javax.swing.Timer(10, this);
         updateView();
-        view.setMaxTimeText("3");
-        view.setFirstTempText("10");
+        view.setUIEnabled(false);
+        view.setMaxTimeTextList(new String[]{"0.01","0.1","0.5","1","2","3","4","5","10","15","20","30"});
+        view.setDefaultMaxTimeText("3");
+        view.setFirstTempTextList(new String[]{"0.1","1","3","5","10","20","50","100","200","300","400"});
+        view.setDefaultFirstTempText("10");
     }
 
     public void pressedStart() {
@@ -79,7 +80,7 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
     }
 
     protected void updateView() {
-        if(mSAModel.getNumPlot()<4)view.setStartButtonEnabled(false);
+        if(mSAModel.getNumPlot()<4)view.setStartButtonAndMakeRandomRouteButtonEnabled(false);
         view.setNumPlotText(Integer.toString(mSAModel.getNumPlot()));
         view.setNowCostText(String.format("%.2f", mSAModel.getNowCost()));
         view.setBestCostText(String.format("%.4f", mSAModel.getBestCost()));

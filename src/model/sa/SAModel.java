@@ -196,7 +196,7 @@ public class SAModel {
         nowDist = d[nowRoute[0]][nowRoute[numPlot - 1]];
         for (int i = 0; i < numPlot - 1; i++) nowDist += d[nowRoute[i]][nowRoute[i + 1]];
         bestDist = nowDist;
-        
+
         listener.changedSAModel();
     }
 

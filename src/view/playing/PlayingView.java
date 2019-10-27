@@ -1,10 +1,8 @@
 package view.playing;
 
-import model.guide.GuideLoader;
 import presenter.GuidePresenter;
 import presenter.PlayingPresenter;
 import presenter.PlotsDataChoosingPresenter;
-import repository.GuideLoaderByFile;
 import view.fragment.GuideView;
 import view.fragment.IGuideView;
 import view.fragment.PlotMapView;
@@ -26,8 +24,8 @@ implements IPlayingView, ActionListener {
     private SceneChanger sceneChanger;
     //ビューコンポーネント
     private JLabel lNumPlot;
-    private JTextField tMaxTime;
-    private JTextField tFirstTemp;
+    private JComboBox cMaxTime;
+    private JComboBox cFirstTemp;
     private JButton bMakeRandomRoute;
     private JButton bStart;
     private JButton bReset;
@@ -53,13 +51,13 @@ implements IPlayingView, ActionListener {
         lNumPlot = SATSPUI.createLabel();
         lNumPlot.setForeground(SATSPUI.cyan);
         JLabel lMaxTimeHelper = SATSPUI.createLabel("MaxTime=");
-        tMaxTime = SATSPUI.createTextField();
-        tMaxTime.setPreferredSize(new Dimension(50, 25));
-        tMaxTime.setForeground(SATSPUI.cyan);
+        cMaxTime = SATSPUI.createComboBox();
+        cMaxTime.setPreferredSize(new Dimension(50, 25));
+        cMaxTime.setForeground(SATSPUI.cyan);
         JLabel lFirstTempHelper = SATSPUI.createLabel("FirstTemp=");
-        tFirstTemp = SATSPUI.createTextField();
-        tFirstTemp.setPreferredSize(new Dimension(50, 25));
-        tFirstTemp.setForeground(SATSPUI.cyan);
+        cFirstTemp = SATSPUI.createComboBox();
+        cFirstTemp.setPreferredSize(new Dimension(50, 25));
+        cFirstTemp.setForeground(SATSPUI.cyan);
         bMakeRandomRoute=SATSPUI.createButton("RandomRoute");
         bMakeRandomRoute.setActionCommand("MakeRandomRoute");
         bMakeRandomRoute.addActionListener(this);
@@ -78,9 +76,9 @@ implements IPlayingView, ActionListener {
         pUpper.add(lNumPlotHelper);
         pUpper.add(lNumPlot);
         pUpper.add(lMaxTimeHelper);
-        pUpper.add(tMaxTime);
+        pUpper.add(cMaxTime);
         pUpper.add(lFirstTempHelper);
-        pUpper.add(tFirstTemp);
+        pUpper.add(cFirstTemp);
         pUpper.add(bMakeRandomRoute);
         pUpper.add(bStart);
         pUpper.add(bReset);
@@ -119,6 +117,28 @@ implements IPlayingView, ActionListener {
         presenter=new PlayingPresenter(this);
         vPlotMapView.setPresenter(presenter);
 
+    }
+
+    @Override
+    public void setMaxTimeTextList(String[] t) {
+        cMaxTime.removeAllItems();
+        for(String text:t)cMaxTime.addItem(text);
+    }
+
+    @Override
+    public void setDefaultMaxTimeText(String t) {
+        cMaxTime.setSelectedItem(t);
+    }
+
+    @Override
+    public void setFirstTempTextList(String[] t) {
+        cFirstTemp.removeAllItems();
+        for(String text:t)cFirstTemp.addItem(text);
+    }
+
+    @Override
+    public void setDefaultFirstTempText(String t) {
+        cFirstTemp.setSelectedItem(t);
     }
 
     @Override
@@ -168,22 +188,12 @@ implements IPlayingView, ActionListener {
 
     @Override
     public double getMaxTime() {
-        return Double.parseDouble(tMaxTime.getText());
-    }
-
-    @Override
-    public void setMaxTimeText(String t) {
-        tMaxTime.setText(t);
-    }
-
-    @Override
-    public void setFirstTempText(String t) {
-        tFirstTemp.setText(t);
+        return Double.parseDouble((String) cMaxTime.getSelectedItem());
     }
 
     @Override
     public double getFirstTemp() {
-        return Double.parseDouble(tFirstTemp.getText());
+        return Double.parseDouble((String) cFirstTemp.getSelectedItem());
     }
 
     @Override
@@ -192,12 +202,13 @@ implements IPlayingView, ActionListener {
         bStart.setEnabled(b);
         bReset.setEnabled(b);
         bLoad.setEnabled(b);
-        tMaxTime.setEnabled(b);
-        tFirstTemp.setEnabled(b);
+        cMaxTime.setEnabled(b);
+        cFirstTemp.setEnabled(b);
     }
 
     @Override
-    public void setStartButtonEnabled(boolean b) {
+    public void setStartButtonAndMakeRandomRouteButtonEnabled(boolean b) {
+        bMakeRandomRoute.setEnabled(b);
         bStart.setEnabled(b);
     }
 

@@ -60,4 +60,11 @@ public class SATSPUI {
         t.setBorder(null);
         return t;
     }
+    static public final JComboBox createComboBox(){
+        JComboBox c=new JComboBox();
+        c.setForeground(white);
+        c.setBackground(gray1);
+        c.setBorder(null);
+        return c;
+    }
 }
