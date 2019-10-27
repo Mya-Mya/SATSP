@@ -20,7 +20,6 @@ public class PlayingPresenter implements SAModelListener, ActionListener {
         mSAModel = new SAModel(this);
         timer = new javax.swing.Timer(10, this);
         updateView();
-        view.setUIEnabled(false);
         view.setMaxTimeTextList(new String[]{"0.01","0.1","0.5","1","2","3","4","5","10","15","20","30"});
         view.setDefaultMaxTimeText("3");
         view.setFirstTempTextList(new String[]{"0.1","1","3","5","10","20","50","100","200","300","400"});

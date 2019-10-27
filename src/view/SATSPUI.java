@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class SATSPUI {
     static public final Font mainFont=new Font("メイリオ",Font.PLAIN,20);
-    static public final Font largeFont=new Font("メイリオ",Font.PLAIN,25);
+    static public final Font largeFont=new Font("メイリオ",Font.PLAIN,28);
     static public final Color black=new Color(52, 49, 49);
     static public final Color gray1=new Color(75, 75, 75);
     static public final Color gray2=new Color(129, 129, 129);
@@ -62,9 +62,12 @@ public class SATSPUI {
     }
     static public final JComboBox createComboBox(){
         JComboBox c=new JComboBox();
+        c.setFont(mainFont);
         c.setForeground(white);
         c.setBackground(gray1);
         c.setBorder(null);
+        c.setRequestFocusEnabled(false);
+        c.setLightWeightPopupEnabled(true);
         return c;
     }
 }

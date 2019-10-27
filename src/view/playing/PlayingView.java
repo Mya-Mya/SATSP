@@ -52,11 +52,11 @@ implements IPlayingView, ActionListener {
         lNumPlot.setForeground(SATSPUI.cyan);
         JLabel lMaxTimeHelper = SATSPUI.createLabel("MaxTime=");
         cMaxTime = SATSPUI.createComboBox();
-        cMaxTime.setPreferredSize(new Dimension(50, 25));
+        cMaxTime.setPreferredSize(new Dimension(80, 25));
         cMaxTime.setForeground(SATSPUI.cyan);
         JLabel lFirstTempHelper = SATSPUI.createLabel("FirstTemp=");
         cFirstTemp = SATSPUI.createComboBox();
-        cFirstTemp.setPreferredSize(new Dimension(50, 25));
+        cFirstTemp.setPreferredSize(new Dimension(80, 25));
         cFirstTemp.setForeground(SATSPUI.cyan);
         bMakeRandomRoute=SATSPUI.createButton("RandomRoute");
         bMakeRandomRoute.setActionCommand("MakeRandomRoute");
