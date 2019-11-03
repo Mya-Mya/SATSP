@@ -2,10 +2,14 @@ package presenter;
 
 import model.guide.Guide;
 import model.guide.GuideLoader;
+import repository.CurrentPath;
 import view.fragment.IGuideView;
 
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
 
 public class GuidePresenter implements PropertyChangeListener {
     //ビュー
@@ -32,7 +36,15 @@ public class GuidePresenter implements PropertyChangeListener {
     }
 
     public void onOpenAboutMeButtonClicked(){
-        mGuideView.openAboutMePage();
+        String path= new StringBuilder()
+                .append(CurrentPath.getCurrentPath()).append("\\values\\about_me\\about_me_page.pdf")
+                .toString();
+        try {
+            Desktop.getDesktop().open(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void onCloseButtonClicked(){

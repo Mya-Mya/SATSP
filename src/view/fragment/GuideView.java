@@ -57,7 +57,7 @@ public class GuideView extends JDialog implements IGuideView, ActionListener {
         bNext.setActionCommand("GO_NEXT");
         bNext.addActionListener(this);
 
-        bAboutMe=SATSPUI.createButton("<HTML><U>このアプリについて</U></HTML>");
+        bAboutMe=SATSPUI.createButton("<HTML><U>このアプリについて(内部の仕組みなどの詳細情報)</U></HTML>");
         bAboutMe.setHorizontalAlignment(SwingConstants.RIGHT);
         bAboutMe.setContentAreaFilled(false);
         bAboutMe.setOpaque(false);
@@ -126,10 +126,6 @@ public class GuideView extends JDialog implements IGuideView, ActionListener {
         setVisible(false);
     }
 
-    @Override
-    public void openAboutMePage() {
-        System.out.println("GuideView.openAboutMePage");
-    }
 
     @Override
     public void setGoNextButtonEnabled(boolean b) {

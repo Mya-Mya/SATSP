@@ -50,7 +50,7 @@ implements IPlayingView, ActionListener {
         JLabel lNumPlotHelper=SATSPUI.createLabel("点の数=");
         lNumPlot = SATSPUI.createLabel();
         lNumPlot.setForeground(SATSPUI.cyan);
-        JLabel lMaxTimeHelper = SATSPUI.createLabel("アニーリング時間=");
+        JLabel lMaxTimeHelper = SATSPUI.createLabel("処理時間=");
         cMaxTime = SATSPUI.createComboBox();
         cMaxTime.setPreferredSize(new Dimension(80, 25));
         cMaxTime.setForeground(SATSPUI.cyan);
